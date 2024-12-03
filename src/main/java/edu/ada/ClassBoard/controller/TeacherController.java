@@ -1,7 +1,7 @@
 package edu.ada.ClassBoard.controller;
 
 import edu.ada.ClassBoard.model.Teacher;
-import edu.ada.ClassBoard.service.impl.PersonServiceImpl;
+import edu.ada.ClassBoard.service.impl.GenericPersonServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +12,9 @@ import java.util.List;
 @RequestMapping("/teachers")
 public class TeacherController {
 
-    private final PersonServiceImpl<Teacher> teacherService;
+    private final GenericPersonServiceImpl<Teacher> teacherService;
 
-    public TeacherController(PersonServiceImpl<Teacher> teacherService) {
+    public TeacherController(GenericPersonServiceImpl<Teacher> teacherService) {
         this.teacherService = teacherService;
     }
 

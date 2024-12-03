@@ -1,5 +1,6 @@
 package edu.ada.ClassBoard.service.impl;
 
+import edu.ada.ClassBoard.controller.DTO.StudentResponseDTO;
 import edu.ada.ClassBoard.model.Student;
 import edu.ada.ClassBoard.model.Subject;
 import edu.ada.ClassBoard.model.SubjectName;
@@ -16,10 +17,10 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class PersonServiceImplTest {
+class GenericPersonServiceImplTest {
 
     @InjectMocks
-    private PersonServiceImpl<Student> personService;
+    private GenericPersonServiceImpl<Student> personService;
 
     @Mock
     private PersonRepository<Student> personRepository;
@@ -48,7 +49,7 @@ class PersonServiceImplTest {
     @DisplayName("Should return all persons(Students/Teachers) from the database")
     void getPersons() {
         when(personRepository.save(student)).thenReturn(student);
-        Student studentSaved = personService.savePerson(student);
+        StudentResponseDTO studentSaved = personService.save(student);
         verify(personRepository, times(1)).save(student);
     }
 
