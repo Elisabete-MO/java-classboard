@@ -1,9 +1,8 @@
 package edu.ada.ClassBoard.service.impl;
 
-import edu.ada.ClassBoard.model.Person;
-import edu.ada.ClassBoard.repository.PersonRepository;
 import edu.ada.ClassBoard.service.GenericPersonService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -12,9 +11,9 @@ import java.util.stream.Collectors;
 public abstract class GenericPersonServiceImpl<T, R, D> implements GenericPersonService<R,
         D> {
 
-    protected final PersonRepository<T> repository;
+    private final JpaRepository<T, Long> repository;
 
-    public GenericPersonServiceImpl(PersonRepository<T> repository) {
+    public GenericPersonServiceImpl(JpaRepository<T, Long> repository) {
         this.repository = repository;
     }
 

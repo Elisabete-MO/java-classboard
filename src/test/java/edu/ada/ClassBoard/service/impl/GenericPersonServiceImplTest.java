@@ -4,7 +4,7 @@ import edu.ada.ClassBoard.controller.DTO.StudentResponseDTO;
 import edu.ada.ClassBoard.model.Student;
 import edu.ada.ClassBoard.model.Subject;
 import edu.ada.ClassBoard.model.SubjectName;
-import edu.ada.ClassBoard.repository.PersonRepository;
+import edu.ada.ClassBoard.repository.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ class GenericPersonServiceImplTest {
     private GenericPersonServiceImpl<Student> personService;
 
     @Mock
-    private PersonRepository<Student> personRepository;
+    private StudentRepository<Student> studentRepository;
 
     private Student student;
     private Student student2;
@@ -48,9 +48,9 @@ class GenericPersonServiceImplTest {
     @Test
     @DisplayName("Should return all persons(Students/Teachers) from the database")
     void getPersons() {
-        when(personRepository.save(student)).thenReturn(student);
+        when(studentRepository.save(student)).thenReturn(student);
         StudentResponseDTO studentSaved = personService.save(student);
-        verify(personRepository, times(1)).save(student);
+        verify(studentRepository, times(1)).save(student);
     }
 
     @Test
@@ -60,9 +60,9 @@ class GenericPersonServiceImplTest {
     @Test
     @DisplayName("Given student when savePerson then save student")
     public void testSavePerson() {
-        when(personRepository.save(student)).thenReturn(student);
+        when(studentRepository.save(student)).thenReturn(student);
         Student studentSaved = personService.savePerson(student);
-        verify(personRepository, times(1)).save(student);
+        verify(studentRepository, times(1)).save(student);
         assertEquals(student.getName(),studentSaved.getName());
     }
 

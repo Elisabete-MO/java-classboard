@@ -3,11 +3,13 @@ package edu.ada.ClassBoard;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @OpenAPIDefinition(servers = { @Server(url = "/",
 		description = "default server url")}) // problema de CORS
 @SpringBootApplication
+@EntityScan(basePackages = "edu.ada.ClassBoard.model")
 public class ClassBoardApplication {
 
 	public static void main(String[] args) {

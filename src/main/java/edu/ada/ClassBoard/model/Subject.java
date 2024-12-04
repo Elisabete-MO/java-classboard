@@ -18,7 +18,7 @@ public class Subject {
     @Column(nullable = false, unique = true)
     private SubjectName name;
 
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, unique = true)
     private String code;
 
     @Column(nullable = false)
@@ -31,8 +31,10 @@ public class Subject {
     private List<Student> students;
 
     // Constructor
-    public Subject(Long id, SubjectName name, String code, int credits) {
-        this.id = id;
+    public Subject() {
+    }
+
+    public Subject(SubjectName name, String code, int credits) {
         this.name = name;
         this.code = code;
         this.credits = credits;
@@ -89,11 +91,10 @@ public class Subject {
 
     @Override
     public String toString() {
-        return "Subject{" +
+        return "Subjects: " +
                 "id=" + id +
                 ", name=" + name.getDisplayName() +
-                ", code='" + code + '\'' +
-                ", credits=" + credits +
-                '}';
+                ", code='" + code +
+                ", credits=" + credits + '\n';
     }
 }

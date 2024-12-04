@@ -1,7 +1,8 @@
 package edu.ada.ClassBoard.controller;
 
-import edu.ada.ClassBoard.model.Teacher;
-import edu.ada.ClassBoard.service.impl.GenericPersonServiceImpl;
+import edu.ada.ClassBoard.controller.DTO.TeacherRequestDTO;
+import edu.ada.ClassBoard.controller.DTO.TeacherResponseDTO;
+import edu.ada.ClassBoard.service.impl.TeacherServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,35 +13,37 @@ import java.util.List;
 @RequestMapping("/teachers")
 public class TeacherController {
 
-    private final GenericPersonServiceImpl<Teacher> teacherService;
+    private final TeacherServiceImpl teacherService;
 
-    public TeacherController(GenericPersonServiceImpl<Teacher> teacherService) {
+    public TeacherController(TeacherServiceImpl teacherService) {
         this.teacherService = teacherService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Teacher>> getAllPersons() {
-        return ResponseEntity.status(HttpStatus.OK).body(teacherService.getAll());
+    public ResponseEntity<List<TeacherResponseDTO>> getAllPersons() {
+        return ResponseEntity.status(HttpStatus.OK).body(teacherService.getAll()
+                .contains(null) ? null : teacherService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Teacher> getTeacherById(@RequestParam Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(teacherService.getPersonById(id));
+    public ResponseEntity<TeacherResponseDTO> getTeacherById(@RequestParam Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(teacherService.getById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Teacher> createTeacher(@RequestBody Teacher Teacher) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(teacherService.savePerson(Teacher));
+    public ResponseEntity<TeacherResponseDTO> createTeacher(@RequestBody TeacherRequestDTO Teacher) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(teacherService.save(Teacher));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Teacher> updateTeacher(@PathVariable Long id, @RequestBody Teacher Teacher) {
-        return ResponseEntity.status(HttpStatus.OK).body(teacherService.updatePerson(id, Teacher));
+    public ResponseEntity<TeacherResponseDTO> updateTeacher(@PathVariable Long id,
+                                                  @RequestBody TeacherRequestDTO dto) {
+        return ResponseEntity.status(HttpStatus.OK).body(teacherService.update(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTeacher(@PathVariable Long id) {
-        teacherService.deletePerson(id);
+        teacherService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

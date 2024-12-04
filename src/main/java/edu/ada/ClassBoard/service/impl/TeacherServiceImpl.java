@@ -1,63 +1,64 @@
 package edu.ada.ClassBoard.service.impl;
 
-import edu.ada.ClassBoard.controller.DTO.StudentRequestDTO;
-import edu.ada.ClassBoard.controller.DTO.StudentResponseDTO;
-import edu.ada.ClassBoard.model.Student;
+import edu.ada.ClassBoard.controller.DTO.TeacherRequestDTO;
+import edu.ada.ClassBoard.controller.DTO.TeacherResponseDTO;
 import edu.ada.ClassBoard.model.Subject;
 import edu.ada.ClassBoard.model.SubjectName;
-import edu.ada.ClassBoard.repository.StudentRepository;
+import edu.ada.ClassBoard.model.Teacher;
+import edu.ada.ClassBoard.repository.TeacherRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class StudentServiceImpl extends GenericPersonServiceImpl<Student, StudentResponseDTO, StudentRequestDTO> {
+public class TeacherServiceImpl extends GenericPersonServiceImpl<Teacher,
+        TeacherResponseDTO, TeacherRequestDTO> {
 
     private final SubjectServiceImpl subjectService;
-    private final StudentRepository studentRepository;
+    private final TeacherRepository teacherRepository;
 
-    public StudentServiceImpl(StudentRepository studentRepository,
+    public TeacherServiceImpl(TeacherRepository teacherRepository,
                               SubjectServiceImpl subjectService) {
-        super(studentRepository);
-        this.studentRepository = studentRepository;
+        super(teacherRepository);
+        this.teacherRepository = teacherRepository;
         this.subjectService = subjectService;
     }
 
     @Override
-    protected Student convertDtoToEntity (StudentRequestDTO dto){
+    protected Teacher convertDtoToEntity (TeacherRequestDTO dto){
         List<Subject> subjects = dto.classes().stream()
                 .map(subjectService::getById)
                 .toList();
 
-        Student student = new Student();
-        student.setName(dto.name());
-        student.setEmail(dto.email());
-        student.setClasses(subjects);
-        return student;
+        Teacher teacher = new Teacher();
+        teacher.setName(dto.name());
+        teacher.setEmail(dto.email());
+        teacher.setClasses(subjects);
+        return teacher;
     }
 
     @Override
-    protected StudentResponseDTO convertEntityToDto(Student entity) {
+    protected TeacherResponseDTO convertEntityToDto(Teacher entity) {
         List<SubjectName> classes = entity.getClasses().stream()
                 .map(Subject::getName)
                 .toList();
 
-        return new StudentResponseDTO(
+        return new TeacherResponseDTO(
                 entity.getId(),
                 entity.getName(),
                 entity.getEmail(),
-                entity.getEnrollmentDate(),
                 classes
         );
     }
 
     @Override
-    protected Student updateEntityWithDto(Student existingEntity, StudentRequestDTO dto) {
+    protected Teacher updateEntityWithDto(Teacher existingEntity,
+                                          TeacherRequestDTO dto) {
         existingEntity.setName(dto.name());
         existingEntity.setEmail(dto.email());
         existingEntity.setClasses(dto.classes().stream()
                 .map(subjectService::getById)
                 .toList());
-            return existingEntity;
+        return existingEntity;
     }
 }

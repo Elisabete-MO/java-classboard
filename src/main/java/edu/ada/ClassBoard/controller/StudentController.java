@@ -20,7 +20,7 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StudentResponseDTO>> getAllPersons() {
+    public ResponseEntity<List<StudentResponseDTO>> getAllStudents() {
         return ResponseEntity.status(HttpStatus.OK).body(studentService.getAll().contains(null) ? null : studentService.getAll());
     }
 
