@@ -15,7 +15,7 @@ public class Student extends Person {
     @Column(nullable = false, updatable = false)
     private LocalDateTime enrollmentDate;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "student_classes",
             joinColumns = @JoinColumn(name = "student_id"),
@@ -24,6 +24,7 @@ public class Student extends Person {
     @JsonIgnore
     private List<Subject> classes;
 
+    // Constructors
     public Student() {
         super();
     }
@@ -33,6 +34,14 @@ public class Student extends Person {
         this.classes = classes;
     }
 
+    public Student(Long id, String name, String email, LocalDateTime enrollmentDate, List<Subject> classes) {
+        super(name, email);
+        this.setId(id);
+        this.enrollmentDate = enrollmentDate;
+        this.classes = classes;
+    }
+
+    // Getters e Setters
     public LocalDateTime getEnrollmentDate() {
         return enrollmentDate;
     }

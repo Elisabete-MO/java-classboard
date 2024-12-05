@@ -3,6 +3,8 @@ package edu.ada.ClassBoard.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,17 +26,24 @@ public class Subject {
     @Column(nullable = false)
     private int credits;
 
-    @ManyToMany(mappedBy = "classes")
-    private List<Teacher> teachers;
+    @ManyToMany(mappedBy = "classes", cascade = CascadeType.ALL)
+    private List<Teacher> teachers = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "classes")
-    private List<Student> students;
+    @ManyToMany(mappedBy = "classes", cascade = CascadeType.ALL)
+    private List<Student> students = new ArrayList<>();
 
-    // Constructor
+    // Constructors
     public Subject() {
     }
 
     public Subject(SubjectName name, String code, int credits) {
+        this.name = name;
+        this.code = code;
+        this.credits = credits;
+    }
+
+    public Subject(Long id, SubjectName name, String code, int credits) {
+        this.id = id;
         this.name = name;
         this.code = code;
         this.credits = credits;

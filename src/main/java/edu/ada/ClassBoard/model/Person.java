@@ -15,6 +15,7 @@ public abstract class Person {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    // Constructors
     public Person() {
     }
 
@@ -26,6 +27,10 @@ public abstract class Person {
     // Getters e Setters
     public Long getId() {
         return id;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

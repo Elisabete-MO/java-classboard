@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "tb_teacher")
 public class Teacher extends Person {
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "teacher_classes",
             joinColumns = @JoinColumn(name = "teacher_id"),
@@ -17,6 +17,7 @@ public class Teacher extends Person {
     @JsonIgnore
     private List<Subject> classes;
 
+    // Constructors
     public Teacher() {
         super();
     }
@@ -26,6 +27,13 @@ public class Teacher extends Person {
         this.classes = classes;
     }
 
+    public Teacher(Long id, String name, String email, List<Subject> classes) {
+        super(name, email);
+        this.setId(id);
+        this.classes = classes;
+    }
+
+    // Getters e Setters
     public List<Subject> getClasses() {
         return classes;
     }

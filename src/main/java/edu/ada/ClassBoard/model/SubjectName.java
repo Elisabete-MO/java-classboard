@@ -12,10 +12,12 @@ public enum SubjectName {
 
     private final String displayName;
 
+    // Constructors
     SubjectName(String displayName) {
         this.displayName = displayName;
     }
 
+    // Getters e Setters
     public String getDisplayName() {
         return displayName;
     }
