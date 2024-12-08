@@ -1,7 +1,7 @@
 package edu.ada.ClassBoard.service.impl;
 
-import edu.ada.ClassBoard.controller.DTO.StudentRequestDTO;
-import edu.ada.ClassBoard.controller.DTO.StudentResponseDTO;
+import edu.ada.ClassBoard.DTO.StudentRequestDTO;
+import edu.ada.ClassBoard.DTO.StudentResponseDTO;
 import edu.ada.ClassBoard.model.Student;
 import edu.ada.ClassBoard.model.Subject;
 import edu.ada.ClassBoard.model.SubjectName;
@@ -24,7 +24,7 @@ public class StudentServiceImpl extends GenericPersonServiceImpl<Student, Studen
     }
 
     @Override
-    protected Student convertDtoToEntity (StudentRequestDTO dto){
+    public Student convertDtoToEntity (StudentRequestDTO dto){
         List<Subject> subjects = dto.classes().stream()
                 .map(subjectService::getById)
                 .toList();
@@ -37,7 +37,7 @@ public class StudentServiceImpl extends GenericPersonServiceImpl<Student, Studen
     }
 
     @Override
-    protected StudentResponseDTO convertEntityToDto(Student entity) {
+    public StudentResponseDTO convertEntityToDto(Student entity) {
         List<SubjectName> classes = entity.getClasses().stream()
                 .map(Subject::getName)
                 .toList();
@@ -52,7 +52,8 @@ public class StudentServiceImpl extends GenericPersonServiceImpl<Student, Studen
     }
 
     @Override
-    protected Student updateEntityWithDto(Student existingEntity, StudentRequestDTO dto) {
+    public Student updateEntityWithDto(Student existingEntity,
+                                   StudentRequestDTO dto) {
         existingEntity.setName(dto.name());
         existingEntity.setEmail(dto.email());
         existingEntity.setClasses(dto.classes().stream()

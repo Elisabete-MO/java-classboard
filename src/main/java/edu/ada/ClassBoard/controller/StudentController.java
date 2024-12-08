@@ -1,7 +1,7 @@
 package edu.ada.ClassBoard.controller;
 
-import edu.ada.ClassBoard.controller.DTO.StudentRequestDTO;
-import edu.ada.ClassBoard.controller.DTO.StudentResponseDTO;
+import edu.ada.ClassBoard.DTO.StudentRequestDTO;
+import edu.ada.ClassBoard.DTO.StudentResponseDTO;
 import edu.ada.ClassBoard.service.impl.StudentServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +25,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentResponseDTO> getStudentById(@RequestParam Long id) {
+    public ResponseEntity<StudentResponseDTO> getStudentById(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(studentService.getById(id));
     }
 

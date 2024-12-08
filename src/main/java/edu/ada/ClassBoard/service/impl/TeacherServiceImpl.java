@@ -1,7 +1,7 @@
 package edu.ada.ClassBoard.service.impl;
 
-import edu.ada.ClassBoard.controller.DTO.TeacherRequestDTO;
-import edu.ada.ClassBoard.controller.DTO.TeacherResponseDTO;
+import edu.ada.ClassBoard.DTO.TeacherRequestDTO;
+import edu.ada.ClassBoard.DTO.TeacherResponseDTO;
 import edu.ada.ClassBoard.model.Subject;
 import edu.ada.ClassBoard.model.SubjectName;
 import edu.ada.ClassBoard.model.Teacher;
@@ -25,7 +25,7 @@ public class TeacherServiceImpl extends GenericPersonServiceImpl<Teacher,
     }
 
     @Override
-    protected Teacher convertDtoToEntity (TeacherRequestDTO dto){
+    public Teacher convertDtoToEntity (TeacherRequestDTO dto){
         List<Subject> subjects = dto.classes().stream()
                 .map(subjectService::getById)
                 .toList();
@@ -38,7 +38,7 @@ public class TeacherServiceImpl extends GenericPersonServiceImpl<Teacher,
     }
 
     @Override
-    protected TeacherResponseDTO convertEntityToDto(Teacher entity) {
+    public TeacherResponseDTO convertEntityToDto(Teacher entity) {
         List<SubjectName> classes = entity.getClasses().stream()
                 .map(Subject::getName)
                 .toList();
@@ -52,7 +52,7 @@ public class TeacherServiceImpl extends GenericPersonServiceImpl<Teacher,
     }
 
     @Override
-    protected Teacher updateEntityWithDto(Teacher existingEntity,
+    public Teacher updateEntityWithDto(Teacher existingEntity,
                                           TeacherRequestDTO dto) {
         existingEntity.setName(dto.name());
         existingEntity.setEmail(dto.email());

@@ -1,0 +1,170 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > DataInitializer</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.ada.ClassBoard.config</a>
+</div>
+
+<h1>Coverage Summary for Class: DataInitializer (edu.ada.ClassBoard.config)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DataInitializer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (26/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.ada.ClassBoard.config;
+&nbsp;
+&nbsp;import edu.ada.ClassBoard.model.Student;
+&nbsp;import edu.ada.ClassBoard.model.Subject;
+&nbsp;import edu.ada.ClassBoard.model.SubjectName;
+&nbsp;import edu.ada.ClassBoard.model.Teacher;
+&nbsp;import edu.ada.ClassBoard.repository.StudentRepository;
+&nbsp;import edu.ada.ClassBoard.repository.SubjectRepository;
+&nbsp;import edu.ada.ClassBoard.repository.TeacherRepository;
+&nbsp;import org.springframework.boot.CommandLineRunner;
+&nbsp;import org.springframework.context.annotation.Bean;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Component
+<b class="fc">&nbsp;public class DataInitializer {</b>
+&nbsp;
+&nbsp;    @Bean
+&nbsp;    CommandLineRunner initDatabase(
+&nbsp;            TeacherRepository teacherRepository,
+&nbsp;            StudentRepository studentRepository,
+&nbsp;            SubjectRepository subjectRepository) {
+&nbsp;
+<b class="fc">&nbsp;        return args -&gt; {</b>
+<b class="fc">&nbsp;            Subject math = new Subject(SubjectName.MATH, &quot;MATH101&quot;, 4);</b>
+<b class="fc">&nbsp;            Subject science = new Subject(SubjectName.SCIENCE, &quot;SCI101&quot;, 3);</b>
+<b class="fc">&nbsp;            Subject english = new Subject(SubjectName.ENGLISH, &quot;ENG101&quot;, 2);</b>
+&nbsp;
+<b class="fc">&nbsp;            subjectRepository.saveAll(Arrays.asList(math, science, english));</b>
+&nbsp;
+<b class="fc">&nbsp;            Teacher teacher1 = new Teacher(&quot;John Smith&quot;, &quot;john.smith@example&quot; +</b>
+&nbsp;                    &quot;.com&quot;, new ArrayList&lt;&gt;());
+<b class="fc">&nbsp;            Teacher teacher2 = new Teacher(&quot;Jane Doe&quot;, &quot;jane.doe@example.com&quot;</b>
+&nbsp;                    , new ArrayList&lt;&gt;());
+&nbsp;
+<b class="fc">&nbsp;            teacherRepository.saveAll(Arrays.asList(teacher1, teacher2));</b>
+&nbsp;
+<b class="fc">&nbsp;            Student student1 = new Student(&quot;Alice Johnson&quot;, &quot;alice&quot; +</b>
+&nbsp;                    &quot;.johnson@example.com&quot;, new ArrayList&lt;&gt;());
+<b class="fc">&nbsp;            Student student2 = new Student(&quot;Bob Brown&quot;, &quot;bob.brown@example&quot; +</b>
+&nbsp;                    &quot;.com&quot;, new ArrayList&lt;&gt;());
+&nbsp;
+<b class="fc">&nbsp;            studentRepository.saveAll(Arrays.asList(student1, student2));</b>
+&nbsp;
+<b class="fc">&nbsp;            List&lt;Subject&gt; classes1 = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;            classes1.add(math);</b>
+<b class="fc">&nbsp;            classes1.add(science);</b>
+<b class="fc">&nbsp;            teacher1.setClasses(classes1);</b>
+<b class="fc">&nbsp;            student1.setClasses(classes1);</b>
+<b class="fc">&nbsp;            teacherRepository.save(teacher1);</b>
+<b class="fc">&nbsp;            studentRepository.save(student1);</b>
+&nbsp;
+<b class="fc">&nbsp;            List&lt;Subject&gt; classes2 = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;            classes2.add(english);</b>
+<b class="fc">&nbsp;            teacher2.setClasses(classes2);</b>
+<b class="fc">&nbsp;            student2.setClasses(classes2);</b>
+<b class="fc">&nbsp;            teacherRepository.save(teacher2);</b>
+<b class="fc">&nbsp;            studentRepository.save(student2);</b>
+&nbsp;
+<b class="fc">&nbsp;            System.out.println(&quot;Database initialized&quot;);</b>
+&nbsp;        };
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-12-07 22:52</div>
+</div>
+</body>
+</html>

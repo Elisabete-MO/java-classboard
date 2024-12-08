@@ -1,8 +1,7 @@
 package edu.ada.ClassBoard.service;
 
-import edu.ada.ClassBoard.controller.DTO.SubjectRequestDTO;
+import edu.ada.ClassBoard.DTO.SubjectRequestDTO;
 import edu.ada.ClassBoard.model.Subject;
-import edu.ada.ClassBoard.model.SubjectName;
 
 import java.util.List;
 

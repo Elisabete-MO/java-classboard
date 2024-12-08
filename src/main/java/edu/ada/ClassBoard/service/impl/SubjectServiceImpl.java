@@ -1,6 +1,6 @@
 package edu.ada.ClassBoard.service.impl;
 
-import edu.ada.ClassBoard.controller.DTO.SubjectRequestDTO;
+import edu.ada.ClassBoard.DTO.SubjectRequestDTO;
 import edu.ada.ClassBoard.model.Subject;
 import edu.ada.ClassBoard.model.SubjectName;
 import edu.ada.ClassBoard.model.Teacher;

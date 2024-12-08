@@ -23,8 +23,7 @@ public class SubjectController {
 
     @GetMapping
     public ResponseEntity<List<Subject>> getAllSubjects() {
-        return ResponseEntity.status(HttpStatus.OK).body(subjectService
-                .getAll().contains(null) ? null : subjectService.getAll());
+        return ResponseEntity.status(HttpStatus.OK).body(subjectService.getAll());
     }
 
     @GetMapping("/{id}")

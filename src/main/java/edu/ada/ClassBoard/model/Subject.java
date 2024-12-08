@@ -26,10 +26,11 @@ public class Subject {
     @Column(nullable = false)
     private int credits;
 
-    @ManyToMany(mappedBy = "classes", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "classes", cascade = {CascadeType.PERSIST,
+            CascadeType.MERGE}, fetch = FetchType.EAGER)
     private List<Teacher> teachers = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "classes", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "classes", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     private List<Student> students = new ArrayList<>();
 
     // Constructors

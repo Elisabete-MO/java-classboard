@@ -1,7 +1,7 @@
 package edu.ada.ClassBoard.controller;
 
-import edu.ada.ClassBoard.controller.DTO.TeacherRequestDTO;
-import edu.ada.ClassBoard.controller.DTO.TeacherResponseDTO;
+import edu.ada.ClassBoard.DTO.TeacherRequestDTO;
+import edu.ada.ClassBoard.DTO.TeacherResponseDTO;
 import edu.ada.ClassBoard.service.impl.TeacherServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class TeacherController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TeacherResponseDTO>> getAllPersons() {
+    public ResponseEntity<List<TeacherResponseDTO>> getAllTeachers() {
         return ResponseEntity.status(HttpStatus.OK).body(teacherService.getAll()
                 .contains(null) ? null : teacherService.getAll());
     }

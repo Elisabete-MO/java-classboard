@@ -1,0 +1,178 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > StudentServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.ada.ClassBoard.service.impl</a>
+</div>
+
+<h1>Coverage Summary for Class: StudentServiceImpl (edu.ada.ClassBoard.service.impl)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StudentServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    12%
+  </span>
+  <span class="absValue">
+    (3/25)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">StudentServiceImpl$$SpringCGLIB$$0</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    12%
+  </span>
+  <span class="absValue">
+    (3/25)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.ada.ClassBoard.service.impl;
+&nbsp;
+&nbsp;import edu.ada.ClassBoard.DTO.StudentRequestDTO;
+&nbsp;import edu.ada.ClassBoard.DTO.StudentResponseDTO;
+&nbsp;import edu.ada.ClassBoard.model.Student;
+&nbsp;import edu.ada.ClassBoard.model.Subject;
+&nbsp;import edu.ada.ClassBoard.model.SubjectName;
+&nbsp;import edu.ada.ClassBoard.repository.StudentRepository;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+&nbsp;public class StudentServiceImpl extends GenericPersonServiceImpl&lt;Student, StudentResponseDTO, StudentRequestDTO&gt; {
+&nbsp;
+&nbsp;    private final SubjectServiceImpl subjectService;
+&nbsp;    private final StudentRepository studentRepository;
+&nbsp;
+&nbsp;    public StudentServiceImpl(StudentRepository studentRepository,
+&nbsp;                              SubjectServiceImpl subjectService) {
+<b class="fc">&nbsp;        super(studentRepository);</b>
+<b class="fc">&nbsp;        this.studentRepository = studentRepository;</b>
+<b class="fc">&nbsp;        this.subjectService = subjectService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Student convertDtoToEntity (StudentRequestDTO dto){
+<b class="nc">&nbsp;        List&lt;Subject&gt; subjects = dto.classes().stream()</b>
+<b class="nc">&nbsp;                .map(subjectService::getById)</b>
+<b class="nc">&nbsp;                .toList();</b>
+&nbsp;
+<b class="nc">&nbsp;        Student student = new Student();</b>
+<b class="nc">&nbsp;        student.setName(dto.name());</b>
+<b class="nc">&nbsp;        student.setEmail(dto.email());</b>
+<b class="nc">&nbsp;        student.setClasses(subjects);</b>
+<b class="nc">&nbsp;        return student;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public StudentResponseDTO convertEntityToDto(Student entity) {
+<b class="nc">&nbsp;        List&lt;SubjectName&gt; classes = entity.getClasses().stream()</b>
+<b class="nc">&nbsp;                .map(Subject::getName)</b>
+<b class="nc">&nbsp;                .toList();</b>
+&nbsp;
+<b class="nc">&nbsp;        return new StudentResponseDTO(</b>
+<b class="nc">&nbsp;                entity.getId(),</b>
+<b class="nc">&nbsp;                entity.getName(),</b>
+<b class="nc">&nbsp;                entity.getEmail(),</b>
+<b class="nc">&nbsp;                entity.getEnrollmentDate(),</b>
+&nbsp;                classes
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Student updateEntityWithDto(Student existingEntity,
+&nbsp;                                   StudentRequestDTO dto) {
+<b class="nc">&nbsp;        existingEntity.setName(dto.name());</b>
+<b class="nc">&nbsp;        existingEntity.setEmail(dto.email());</b>
+<b class="nc">&nbsp;        existingEntity.setClasses(dto.classes().stream()</b>
+<b class="nc">&nbsp;                .map(subjectService::getById)</b>
+<b class="nc">&nbsp;                .toList());</b>
+<b class="nc">&nbsp;            return existingEntity;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-12-07 22:52</div>
+</div>
+</body>
+</html>

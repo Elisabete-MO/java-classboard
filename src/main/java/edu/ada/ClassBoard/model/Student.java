@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,14 +16,14 @@ public class Student extends Person {
     @Column(nullable = false, updatable = false)
     private LocalDateTime enrollmentDate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "student_classes",
             joinColumns = @JoinColumn(name = "student_id"),
             inverseJoinColumns = @JoinColumn(name = "class_id")
     )
     @JsonIgnore
-    private List<Subject> classes;
+    private List<Subject> classes = new ArrayList<>();
 
     // Constructors
     public Student() {
@@ -51,7 +52,16 @@ public class Student extends Person {
     }
 
     public void setClasses(List<Subject> classes) {
+        if (classes == null || classes.isEmpty()) {
+            this.classes = new ArrayList<>();
+            return;
+        }
+
         this.classes = classes;
+
+        for (Subject subject : classes) {
+            subject.getStudents().add(this);
+        }
     }
 
     @Override
